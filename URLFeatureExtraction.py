@@ -1,3 +1,4 @@
+from pyexpat import features
 from urllib.parse import urlparse
 import re
 
@@ -5,6 +6,8 @@ def extract_features(url):
     parsed = urlparse(url)
 
     features = {}
+    if not url.startswith("http"):
+     url = "https://" + url
 
     # 1. Have_IP
     features["Have_IP"] = 1 if re.match(r"\d+\.\d+\.\d+\.\d+", parsed.netloc) else 0
@@ -16,13 +19,13 @@ def extract_features(url):
     features["URL_Length"] = len(url)
 
     # 4. URL_Depth
-    features["URL_Depth"] = url.count("/")
+    features["URL_Depth"] = len(parsed.path.split("/")) - 1
 
     # 5. Redirection
     features["Redirection"] = 1 if url.count("//") > 1 else 0
 
     # 6. https_Domain
-    features["https_Domain"] = 1 if "https" in parsed.netloc else 0
+    features["https_Domain"] = 1 if parsed.scheme == "https" else 0
 
     # 7. TinyURL
     shortening_services = r"bit\.ly|goo\.gl|tinyurl|ow\.ly|t\.co"
@@ -34,10 +37,10 @@ def extract_features(url):
     # 9–16 (Not easily extractable without external services)
     # Setting safe defaults (can improve later)
 
-    features["DNS_Record"] = 0
-    features["Web_Traffic"] = 0
-    features["Domain_Age"] = 0
-    features["Domain_End"] = 0
+    features["DNS_Record"] = 1
+    features["Web_Traffic"] = 1
+    features["Domain_Age"] = 1
+    features["Domain_End"] = 1
     features["iFrame"] = 0
     features["Mouse_Over"] = 0
     features["Right_Click"] = 0

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=dev
+  ice-width, initial-scale=1.0"/>
+  <title> Phishing Detection System</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- ✅ FIX: Flask static path -->
+  <link rel="stylesheet" href="/static/style.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+
+<body class="bg-[#030B14] text-[#c8d8e8] font-rajdhani overflow-x-hidden">
+
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <!-- Sidebar -->
+  <aside id="sidebar" class="sidebar fixed top-0 left-0 h-full z-40 flex flex-col">
+    <div class="sidebar-logo">
+      <span class="logo-icon">⬡</span>
+      <span class="logo-text">PHISH<span class="text-[#00ffe7]">GUARD</span></span>
+    </div>
+    <nav class="flex-1 mt-6">
+      <ul class="space-y-1 px-3">
+        <li>
+          <a href="#home" class="nav-link active" data-section="home">
+            <span class="nav-icon">⌂</span><span class="nav-label">Home</span>
+          </a>
+        </li>
+        <li>
+          <a href="#detect" class="nav-link" data-section="detect">
+            <span class="nav-icon">⌖</span><span class="nav-label">Detect URL</span>
+          </a>
+        </li>
+        <li>
+          <a href="#about" class="nav-link" data-section="about">
+            <span class="nav-icon">◉</span><span class="nav-label">About</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="status-badge">
+        <span class="pulse-dot"></span>
+        <span class="text-xs font-mono text-[#00ffe7]">SYSTEM ONLINE</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Mobile -->
+  <header class="mobile-header md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-3">
+    <span class="logo-text text-lg font-orbitron">PHISH<span class="text-[#00ffe7]">GUARD</span></span>
+    <button id="menuBtn" class="text-[#00ffe7] text-2xl">☰</button>
+  </header>
+
+  <div id="mobileOverlay" class="fixed inset-0 bg-black/70 z-30 hidden" onclick="closeMobileMenu()"></div>
+
+  <main class="main-content">
+
+    <!-- HOME -->
+    <section id="home" class="section min-h-screen flex flex-col justify-center relative overflow-hidden">
+      <div class="cyber-grid"></div>
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+
+      <h1 class="hero-title">
+        Phishing website <br/>
+        <span class="text-gradient">Detection System </span>
+      </h1>
+
+      <p class="hero-sub">
+        PhishGuard detects phishing websites using machine learning.
+      </p>
+
+      <a href="#detect" class="btn-primary mt-6">
+        ⌖ Scan a URL Now
+      </a>
+    </section>
+
+    <!-- DETECT -->
+    <section id="detect" class="section min-h-screen flex flex-col justify-center py-20">
+      <div class="max-w-3xl mx-auto px-6 w-full">
+
+        <h2 class="section-title text-center mb-6">URL Intelligence Scanner</h2>
+
+        <div class="scanner-card">
+
+          <div class="input-wrap">
+            <span class="input-prefix">https://</span>
+            <input id="urlInput" class="url-input" placeholder="example.com" />
+            <button onclick="clearInput()">✕</button>
+          </div>
+
+          <div class="mt-4">
+            <button id="checkBtn" onclick="checkURL()" class="btn-scan">
+              <span id="btnLabel">⌖ Analyze URL</span>
+              <span id="btnSpinner" class="hidden">...</span>
+            </button>
+          </div>
+
+          <!-- RESULT -->
+         <div id="resultArea" class="result-area hidden">
+  <div id="resultCard" class="result-card">
+    <div id="resultIcon" class="result-icon"></div>
+    <div>
+      <div id="resultTitle" class="result-title"></div>
+      <div id="resultSub" class="result-sub"></div>
+    </div>
+  </div>
+</div>
+  <div id="resultIcon" class="result-icon"></div>
+  <div>
+    <div id="resultTitle" class="result-title"></div>
+    <div id="resultSub" class="result-sub"></div>
+  </div>
+</div>
+
+            <div class="mt-4 bg-gray-700 h-3 rounded">
+              <div id="threatBar" class="h-3 bg-green-400 rounded" style="width:0%"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="py-16 text-center">
+      <h2 class="text-3xl text-cyan-400">About PhishGuard</h2>
+      <p class="mt-4 text-gray-400">
+        Detect phishing websites using ML.
+      </p>
+    </section>
+
+  </main>
+
+  <!-- ✅ FIX: Flask JS path -->
+  <script src="/static/script.js"></script>
+
+</body>
+</html>
